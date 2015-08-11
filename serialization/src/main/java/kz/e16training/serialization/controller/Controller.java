@@ -21,9 +21,14 @@ public class Controller implements Serializable{
     private List<Actor> actorsCollection;
     transient private IO io;
 
-    public Controller() {
-        this.moviesCollection = new ArrayList<Movie>();
-        this.actorsCollection = new ArrayList<Actor>();
+    public Controller() throws IOException, ClassNotFoundException {
+        if (isFilesExists()) {
+            this.moviesCollection = getMoviesFromDump();
+            this.actorsCollection = getActorsFromDump();
+        } else {
+            this.moviesCollection = new ArrayList<Movie>();
+            this.actorsCollection = new ArrayList<Actor>();
+        }
         this.io = new IO();
     }
 
@@ -67,16 +72,16 @@ public class Controller implements Serializable{
         return  (actorsFile.exists() || moviesFile.exists());
     }
 
-    private void loadMovies() throws IOException, ClassNotFoundException {
+    private List<Movie> getMoviesFromDump() throws IOException, ClassNotFoundException {
         InputStream in = new FileInputStream(MOVIES_COLLECTION);
         ObjectInputStream oin = new ObjectInputStream(in);
-        moviesCollection = (List<Movie>) oin.readObject();
+        return  (List<Movie>) oin.readObject();
     }
 
-    private void loadActors() throws IOException, ClassNotFoundException {
+    private List<Actor> getActorsFromDump() throws IOException, ClassNotFoundException {
         InputStream in = new FileInputStream(ACTORS_COLLECTION);
         ObjectInputStream oin = new ObjectInputStream(in);
-        actorsCollection = (List<Actor>) oin.readObject();
+        return (List<Actor>) oin.readObject();
     }
 
     private void saveMovies() throws IOException {
@@ -91,6 +96,15 @@ public class Controller implements Serializable{
         oos.writeObject(actorsCollection);
     }
 
+    private void save() {
+        try {
+            saveActors();
+            saveMovies();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void mainMenu() {
         String choice;
         while (!("0".equals(choice = io.getMainMenuChoice()))) {
@@ -103,27 +117,8 @@ public class Controller implements Serializable{
                 printMoviesCollection();
             }
         }
+        save();
     }
 
-    public void save() {
-        try {
-            saveActors();
-            saveMovies();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void load() {
-        if (!isFilesExists()) return;
-        try {
-            loadActors();
-            loadMovies();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
 }

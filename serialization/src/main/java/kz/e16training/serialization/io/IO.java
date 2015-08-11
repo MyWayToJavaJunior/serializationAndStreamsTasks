@@ -17,8 +17,8 @@ public class IO implements Serializable{
     private static final String ASK_FOR_NEW_ACTOR_SURNAME = "Type surname for new actor:";
     private static final String MAIN_MENU = "Type select:\n1. View movies collection\n2. Add new movie to collection\n3. Remove movie from collection\n0. Exit program";
     private static final String ASK_FOR_INDEX_OF_MOVIE_FOR_DEL = "Type index of movie for delete:";
-    private Scanner scanner = new Scanner(System.in);
     private final static String ASK_FOR_MOVIE_NAME = "Type name for movie:";
+    private Scanner scanner = new Scanner(System.in);
 
     private void print(String stringForPrint) {
         System.out.println(stringForPrint);
@@ -28,20 +28,8 @@ public class IO implements Serializable{
         print(ASK_FOR_MOVIE_NAME);
     }
 
-
     private String getString() {
         return scanner.nextLine();
-    }
-
-    public String getMovieName() {
-        askForMovieName();
-        return getString();
-    }
-
-    private void printCollection(List<Actor> actorsCollection) {
-        for (int i = 0; i < actorsCollection.size(); i++) {
-            print(i + " : " + actorsCollection.get(i));
-        }
     }
 
     private void askForActorNumber() {
@@ -62,6 +50,17 @@ public class IO implements Serializable{
 
     private void askForNewActorSurname() {
         print(ASK_FOR_NEW_ACTOR_SURNAME);
+    }
+
+    private void printCollection(List<Actor> actorsCollection) {
+        for (int i = 0; i < actorsCollection.size(); i++) {
+            print(i + " : " + actorsCollection.get(i));
+        }
+    }
+
+    public String getMovieName() {
+        askForMovieName();
+        return getString();
     }
 
     public String getNewActorName() {
