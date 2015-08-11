@@ -4,20 +4,21 @@ import kz.e16training.serialization.model.Actor;
 import kz.e16training.serialization.model.Movie;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * Input - output.
  *
  */
 public class IO implements Serializable{
-    private static final String ASK_FOR_ACTOR_NUMBER = "Type the number of actor(or exit or new):";
+    private static final String ASK_FOR_ACTOR_NUMBER = "Type the number of actor:";
     private static final String ASK_FOR_NEW_ACTOR_NAME = "Type name for new actor:";
     private static final String ASK_FOR_NEW_ACTOR_SURNAME = "Type surname for new actor:";
     private static final String MAIN_MENU = "Type select:\n1. View movies collection\n2. Add new movie to collection\n3. Remove movie from collection\n0. Exit program";
     private static final String ASK_FOR_INDEX_OF_MOVIE_FOR_DEL = "Type index of movie for delete:";
     private final static String ASK_FOR_MOVIE_NAME = "Type name for movie:";
+    private static final String ASK_FOR_INPUT_TYPE_OF_ACTOR = "Type input type of actor numb/new or exit:";
     private Scanner scanner = new Scanner(System.in);
 
     private void print(String stringForPrint) {
@@ -52,9 +53,14 @@ public class IO implements Serializable{
         print(ASK_FOR_NEW_ACTOR_SURNAME);
     }
 
-    private void printCollection(List<Actor> actorsCollection) {
-        for (int i = 0; i < actorsCollection.size(); i++) {
-            print(i + " : " + actorsCollection.get(i));
+    private void askForInputTypeOfActor() {
+        print(ASK_FOR_INPUT_TYPE_OF_ACTOR);
+    }
+
+    public void printActorsCollection(Set<Actor> actorsCollection) {
+        int count = 0;
+        for (Actor actor : actorsCollection) {
+            print(count++ + " : " + actor);
         }
     }
 
@@ -68,10 +74,15 @@ public class IO implements Serializable{
         return getString();
     }
 
-    public String getUserChoice(List<Actor> actorsCollection) {
+    public Actor getActorFromCollection(Set<Actor> actorsCollection) {
+        printActorsCollection(actorsCollection);
         askForActorNumber();
-        printCollection(actorsCollection);
-        return getString();
+        String userChoice = getString();
+        int count = 0;
+        for (Actor actor : actorsCollection) {
+            if (userChoice.equals(String.valueOf(count++))) return actor;
+        }
+        return null;
     }
 
     public String getNewActorSurname() {
@@ -84,15 +95,26 @@ public class IO implements Serializable{
         return getString();
     }
 
-    public void printMoviesCollection(List<Movie> moviesCollection) {
-        for (int i = 0; i < moviesCollection.size(); i++) {
-            print(i + " : " + moviesCollection.get(i).toString());
+    public void printMoviesCollection(Set<Movie> moviesCollection) {
+        int count = 0;
+        for (Movie movie : moviesCollection) {
+            System.out.println(count++ + " : " + movie.toString());
         }
     }
 
-    public String getIndexOfMovieForDel() {
+    public Movie getMovieForDel(Set<Movie> moviesCollection) {
+        printMoviesCollection(moviesCollection);
         askIndexOfMovieForDel();
-        return getString();
+        String userChoice = getString();
+        int count = 0;
+        for (Movie movie : moviesCollection) {
+            if (userChoice.equals(String.valueOf(count++))) return movie;
+        }
+        return null;
     }
 
+    public String getTypeOfInput() {
+        askForInputTypeOfActor();
+        return getString();
+    }
 }

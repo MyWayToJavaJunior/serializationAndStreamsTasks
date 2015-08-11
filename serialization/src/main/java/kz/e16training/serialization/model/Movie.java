@@ -27,6 +27,31 @@ public class Movie implements Serializable{
         return sb.toString();
     }
 
+    public String getNameOfMovie() {
+        return nameOfMovie;
+    }
+
+    public Set<Actor> getActors() {
+        return actors;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Movie)) return false;
+        Movie entry = (Movie) obj;
+        return nameOfMovie.equals(entry.getNameOfMovie()) && actors.containsAll(entry.getActors());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 37;
+        hash = hash * 17 + nameOfMovie.hashCode();
+        for (Actor actor : actors) {
+            hash = hash * 17 + actor.hashCode();
+        }
+        return hash;
+    }
+
     @Override
     public String toString() {
         return nameOfMovie + " : " + actorsToString();
