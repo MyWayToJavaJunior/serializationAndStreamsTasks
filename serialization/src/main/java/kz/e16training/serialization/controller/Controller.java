@@ -12,12 +12,12 @@ import java.util.Set;
  * Controller.
  *
  */
-public class Controller implements Serializable{
+public class Controller {
     private final static String MOVIES_COLLECTION = "movies";
     private final static String ACTORS_COLLECTION = "actors";
     private Set<Movie> moviesCollection;
     private Set<Actor> actorsCollection;
-    transient private IO io;
+    private IO io;
 
     public Controller() throws IOException, ClassNotFoundException {
         if (isFilesExists()) {

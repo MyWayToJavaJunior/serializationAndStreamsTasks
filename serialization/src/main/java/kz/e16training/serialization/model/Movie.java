@@ -8,7 +8,7 @@ import java.util.Set;
  * Movie.
  *
  */
-public class Movie implements Serializable{
+public class Movie implements Serializable {
     private String nameOfMovie;
     private Set<Actor> actors;
 

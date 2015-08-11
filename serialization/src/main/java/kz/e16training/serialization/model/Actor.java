@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Actor.
  *
  */
-public class Actor implements Serializable{
+public class Actor implements Serializable {
     private String name;
     private String surname;
 

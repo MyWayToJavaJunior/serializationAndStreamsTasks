@@ -11,7 +11,7 @@ import java.util.Set;
  * Input - output.
  *
  */
-public class IO implements Serializable{
+public class IO {
     private static final String ASK_FOR_ACTOR_NUMBER = "Type the number of actor:";
     private static final String ASK_FOR_NEW_ACTOR_NAME = "Type name for new actor:";
     private static final String ASK_FOR_NEW_ACTOR_SURNAME = "Type surname for new actor:";
