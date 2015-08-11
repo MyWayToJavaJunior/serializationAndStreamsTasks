@@ -3,7 +3,6 @@ package kz.e16training.serialization.io;
 import kz.e16training.serialization.model.Actor;
 import kz.e16training.serialization.model.Movie;
 
-import java.io.Serializable;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -12,13 +11,22 @@ import java.util.Set;
  *
  */
 public class IO {
-    private static final String ASK_FOR_ACTOR_NUMBER = "Type the number of actor:";
-    private static final String ASK_FOR_NEW_ACTOR_NAME = "Type name for new actor:";
-    private static final String ASK_FOR_NEW_ACTOR_SURNAME = "Type surname for new actor:";
-    private static final String MAIN_MENU = "Type select:\n1. View movies collection\n2. Add new movie to collection\n3. Remove movie from collection\n0. Exit program";
-    private static final String ASK_FOR_INDEX_OF_MOVIE_FOR_DEL = "Type index of movie for delete:";
-    private final static String ASK_FOR_MOVIE_NAME = "Type name for movie:";
-    private static final String ASK_FOR_INPUT_TYPE_OF_ACTOR = "Type input type of actor numb/new or exit:";
+    private static final String ASK_FOR_ACTOR_NUMBER =
+            "Type the number of actor:";
+    private static final String ASK_FOR_NEW_ACTOR_NAME =
+            "Type name for new actor:";
+    private static final String ASK_FOR_NEW_ACTOR_SURNAME =
+            "Type surname for new actor:";
+    private static final String MAIN_MENU =
+            "Type select:\n1. View movies collection\n" +
+                    "2. Add new movie to collection\n" +
+                    "3. Remove movie from collection\n0. Exit program";
+    private static final String ASK_FOR_INDEX_OF_MOVIE_FOR_DEL =
+            "Type index of movie for delete:";
+    private final static String ASK_FOR_MOVIE_NAME =
+            "Type name for movie:";
+    private static final String ASK_FOR_INPUT_TYPE_OF_ACTOR =
+            "Type input type of actor numb/new or exit:";
     private Scanner scanner = new Scanner(System.in);
 
     private void print(String stringForPrint) {
@@ -80,7 +88,8 @@ public class IO {
         String userChoice = getString();
         int count = 0;
         for (Actor actor : actorsCollection) {
-            if (userChoice.equals(String.valueOf(count++))) return actor;
+            if (userChoice.equals(String.valueOf(count++)))
+                return actor;
         }
         return null;
     }
@@ -108,7 +117,8 @@ public class IO {
         String userChoice = getString();
         int count = 0;
         for (Movie movie : moviesCollection) {
-            if (userChoice.equals(String.valueOf(count++))) return movie;
+            if (userChoice.equals(String.valueOf(count++)))
+                return movie;
         }
         return null;
     }

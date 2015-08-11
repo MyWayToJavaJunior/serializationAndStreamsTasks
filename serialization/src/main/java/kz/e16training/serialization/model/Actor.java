@@ -27,7 +27,8 @@ public class Actor implements Serializable {
     public boolean equals(Object obj) {
         if (!(obj instanceof Actor)) return false;
         Actor entry = (Actor) obj;
-        return name.equals(entry.getName()) && surname.equals(entry.getSurname());
+        return name.equals(entry.getName())
+                && surname.equals(entry.getSurname());
     }
 
     @Override

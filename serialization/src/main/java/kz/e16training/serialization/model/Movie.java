@@ -39,7 +39,8 @@ public class Movie implements Serializable {
     public boolean equals(Object obj) {
         if (!(obj instanceof Movie)) return false;
         Movie entry = (Movie) obj;
-        return nameOfMovie.equals(entry.getNameOfMovie()) && actors.containsAll(entry.getActors());
+        return nameOfMovie.equals(entry.getNameOfMovie())
+                && actors.containsAll(entry.getActors());
     }
 
     @Override

@@ -20,7 +20,8 @@ public class Controller {
     private IO io;
 
     public Controller() throws IOException, ClassNotFoundException {
-        if (isFilesExists()) {
+        if (isFileExists(MOVIES_COLLECTION) ||
+                isFileExists(ACTORS_COLLECTION)) {
             this.moviesCollection = getMoviesFromDump();
             this.actorsCollection = getActorsFromDump();
         } else {
@@ -45,7 +46,8 @@ public class Controller {
     }
 
     private Actor getNewActor() {
-        return new Actor(io.getNewActorName(), io.getNewActorSurname());
+        return new Actor(io.getNewActorName(),
+                io.getNewActorSurname());
     }
 
     private Set<Actor> getActorsOfMovie() {
@@ -54,12 +56,14 @@ public class Controller {
         Actor actor;
         while (true) {
             printActorsCollection();
-            if ("exit".equals(choice = io.getTypeOfInput())) break;
+            if ("exit".equals(choice = io.getTypeOfInput()))
+                break;
             if ("new".equals(choice)) {
                 actor = getNewActor();
                 actorsCollection.add(actor);
             } else {
-                actor = io.getActorFromCollection(actorsCollection);
+                actor = io.getActorFromCollection(
+                        actorsCollection);
             }
             if (actor != null) actors.add(actor);
         }
@@ -70,40 +74,35 @@ public class Controller {
         moviesCollection.remove(movie);
     }
 
-    private boolean isFilesExists() {
-        File actorsFile = new File(ACTORS_COLLECTION);
-        File moviesFile = new File(MOVIES_COLLECTION);
-        return  (actorsFile.exists() || moviesFile.exists());
+    private boolean isFileExists(String nameOfFile) {
+        return (new File(nameOfFile)).exists();
     }
 
-    private Set<Movie> getMoviesFromDump() throws IOException, ClassNotFoundException {
+    private Set<Movie> getMoviesFromDump() throws IOException,
+            ClassNotFoundException {
         InputStream in = new FileInputStream(MOVIES_COLLECTION);
         ObjectInputStream oin = new ObjectInputStream(in);
         return  (Set<Movie>) oin.readObject();
     }
 
-    private Set<Actor> getActorsFromDump() throws IOException, ClassNotFoundException {
+    private Set<Actor> getActorsFromDump() throws IOException,
+            ClassNotFoundException {
         InputStream in = new FileInputStream(ACTORS_COLLECTION);
         ObjectInputStream oin = new ObjectInputStream(in);
         return (Set<Actor>) oin.readObject();
     }
 
-    private void saveMovies() throws IOException {
-        OutputStream os = new FileOutputStream(MOVIES_COLLECTION);
+    private void saveCollection(String nameOfFile, Set collection)
+            throws IOException {
+        OutputStream os = new FileOutputStream(nameOfFile);
         ObjectOutputStream oos = new ObjectOutputStream(os);
-        oos.writeObject(moviesCollection);
-    }
-
-    private void saveActors() throws IOException {
-        OutputStream os = new FileOutputStream(ACTORS_COLLECTION);
-        ObjectOutputStream oos = new ObjectOutputStream(os);
-        oos.writeObject(actorsCollection);
+        oos.writeObject(collection);
     }
 
     private void saveCollections() {
         try {
-            saveActors();
-            saveMovies();
+            saveCollection(ACTORS_COLLECTION, actorsCollection);
+            saveCollection(MOVIES_COLLECTION, moviesCollection);
         } catch (IOException e) {
             e.printStackTrace();
         }
