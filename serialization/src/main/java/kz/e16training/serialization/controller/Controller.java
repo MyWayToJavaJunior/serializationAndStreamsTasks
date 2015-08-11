@@ -61,6 +61,36 @@ public class Controller implements Serializable{
         moviesCollection.remove(index);
     }
 
+    private boolean isFilesExists() {
+        File actorsFile = new File(ACTORS_COLLECTION);
+        File moviesFile = new File(MOVIES_COLLECTION);
+        return  (actorsFile.exists() || moviesFile.exists());
+    }
+
+    private void loadMovies() throws IOException, ClassNotFoundException {
+        InputStream in = new FileInputStream(MOVIES_COLLECTION);
+        ObjectInputStream oin = new ObjectInputStream(in);
+        moviesCollection = (List<Movie>) oin.readObject();
+    }
+
+    private void loadActors() throws IOException, ClassNotFoundException {
+        InputStream in = new FileInputStream(ACTORS_COLLECTION);
+        ObjectInputStream oin = new ObjectInputStream(in);
+        actorsCollection = (List<Actor>) oin.readObject();
+    }
+
+    private void saveMovies() throws IOException {
+        OutputStream os = new FileOutputStream(MOVIES_COLLECTION);
+        ObjectOutputStream oos = new ObjectOutputStream(os);
+        oos.writeObject(moviesCollection);
+    }
+
+    private void saveActors() throws IOException {
+        OutputStream os = new FileOutputStream(ACTORS_COLLECTION);
+        ObjectOutputStream oos = new ObjectOutputStream(os);
+        oos.writeObject(actorsCollection);
+    }
+
     public void mainMenu() {
         String choice;
         while (!("0".equals(choice = io.getMainMenuChoice()))) {
@@ -77,38 +107,18 @@ public class Controller implements Serializable{
 
     public void save() {
         try {
-            OutputStream os = new FileOutputStream(ACTORS_COLLECTION);
-            ObjectOutputStream oos = new ObjectOutputStream(os);
-            oos.writeObject(actorsCollection);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            OutputStream os = new FileOutputStream(MOVIES_COLLECTION);
-            ObjectOutputStream oos = new ObjectOutputStream(os);
-            oos.writeObject(moviesCollection);
+            saveActors();
+            saveMovies();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void load() {
-        File actorsFile = new File(ACTORS_COLLECTION);
-        File moviesFile = new File(MOVIES_COLLECTION);
-        if (!actorsFile.exists() || !moviesFile.exists()) return;
+        if (!isFilesExists()) return;
         try {
-            InputStream in = new FileInputStream(ACTORS_COLLECTION);
-            ObjectInputStream oin = new ObjectInputStream(in);
-            actorsCollection = (List<Actor>) oin.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            InputStream in = new FileInputStream(MOVIES_COLLECTION);
-            ObjectInputStream oin = new ObjectInputStream(in);
-            moviesCollection = (List<Movie>) oin.readObject();
+            loadActors();
+            loadMovies();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

@@ -28,18 +28,13 @@ public class IO implements Serializable{
         print(ASK_FOR_MOVIE_NAME);
     }
 
-    public String getMovieName() {
-        askForMovieName();
-        return getString();
-    }
 
-    public String getString() {
+    private String getString() {
         return scanner.nextLine();
     }
 
-    public String getUserChoice(List<Actor> actorsCollection) {
-        askForActorNumber();
-        printCollection(actorsCollection);
+    public String getMovieName() {
+        askForMovieName();
         return getString();
     }
 
@@ -53,13 +48,31 @@ public class IO implements Serializable{
         print(ASK_FOR_ACTOR_NUMBER);
     }
 
+    private void askForNewActorName() {
+        print(ASK_FOR_NEW_ACTOR_NAME);
+    }
+
+    private void askIndexOfMovieForDel() {
+        print(ASK_FOR_INDEX_OF_MOVIE_FOR_DEL);
+    }
+
+    private void viewMainMenu() {
+        print(MAIN_MENU);
+    }
+
+    private void askForNewActorSurname() {
+        print(ASK_FOR_NEW_ACTOR_SURNAME);
+    }
+
     public String getNewActorName() {
         askForNewActorName();
         return getString();
     }
 
-    private void askForNewActorName() {
-        print(ASK_FOR_NEW_ACTOR_NAME);
+    public String getUserChoice(List<Actor> actorsCollection) {
+        askForActorNumber();
+        printCollection(actorsCollection);
+        return getString();
     }
 
     public String getNewActorSurname() {
@@ -67,17 +80,9 @@ public class IO implements Serializable{
         return getString();
     }
 
-    private void askForNewActorSurname() {
-        print(ASK_FOR_NEW_ACTOR_SURNAME);
-    }
-
     public String getMainMenuChoice() {
         viewMainMenu();
         return getString();
-    }
-
-    private void viewMainMenu() {
-        print(MAIN_MENU);
     }
 
     public void printMoviesCollection(List<Movie> moviesCollection) {
@@ -91,7 +96,4 @@ public class IO implements Serializable{
         return getString();
     }
 
-    private void askIndexOfMovieForDel() {
-        print(ASK_FOR_INDEX_OF_MOVIE_FOR_DEL);
-    }
 }
