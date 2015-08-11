@@ -19,11 +19,11 @@ public class Movie implements Serializable{
 
     public String actorsToString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(actors.size()).append(" : [ ");
+        sb.append(actors.size()).append(" : [  ");
         for (Actor actor : actors) {
             sb.append(actor).append(" : ");
         }
-        sb.delete(sb.length() - 2, sb.length()).append("] ");
+        sb.delete(sb.length() - 2, sb.length()).append(" ] ");
         return sb.toString();
     }
 
