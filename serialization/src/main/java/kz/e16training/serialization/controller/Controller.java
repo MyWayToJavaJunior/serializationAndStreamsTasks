@@ -22,8 +22,8 @@ public class Controller {
     public Controller() throws IOException, ClassNotFoundException {
         if (isFileExists(MOVIES_COLLECTION) ||
                 isFileExists(ACTORS_COLLECTION)) {
-            this.moviesCollection = getMoviesFromDump();
             this.actorsCollection = getActorsFromDump();
+            this.moviesCollection = getMoviesFromDump();
         } else {
             this.moviesCollection = new HashSet<Movie>();
             this.actorsCollection = new HashSet<Actor>();
