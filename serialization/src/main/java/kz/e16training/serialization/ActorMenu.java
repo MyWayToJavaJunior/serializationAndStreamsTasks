@@ -1,7 +1,40 @@
 package kz.e16training.serialization;
 
 /**
- * Created by X1 on 13.08.2015.
+ * Realisation of Actor Menu
  */
-public enum ActorMenu {
+public enum ActorMenu implements IMenu {
+    EXIT("1", "Exit") {
+        public String option() {
+            return null;
+        }
+    },
+
+    ADD_NEW("2", "Add new Actor") {
+        public String option() {
+            return null;
+        }
+    },
+
+    FROM_LIST("3", "Get from list") {
+        public String option() {
+            return null;
+        }
+    };
+
+    private final String number;
+    private final String text;
+    ActorMenu(String number, String text) {
+        this.number = number;
+        this.text = text;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    @Override
+    public String toString() {
+        return number + ". " + text;
+    }
 }

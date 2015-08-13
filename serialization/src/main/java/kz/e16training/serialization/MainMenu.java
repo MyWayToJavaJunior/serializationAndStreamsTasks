@@ -2,28 +2,31 @@ package kz.e16training.serialization;
 
 
 /**
- * Realisation of MainMenu
+ * Realisation of Main Menu
  *
  */
 public enum MainMenu implements IMenu {
     VIEW_ALL ("1", "View movie collection") {
         public String option() {
-            return "view";
+            return "";
         }
     },
+
     ADD_NEW ("2", "Add new movie to collection") {
         public String option() {
-            return "add";
+            return "";
         }
     },
+
     DEL ("3", "Delete movie from collection") {
         public String option() {
-            return "del";
+            return "";
         }
     },
+
     EXIT ("4", "Exit") {
         public String option() {
-            return "exit";
+            return "";
         }
     };
 

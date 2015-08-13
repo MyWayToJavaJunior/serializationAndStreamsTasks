@@ -1,7 +1,9 @@
 package kz.e16training.serialization.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Model of movie collection.
@@ -35,5 +37,13 @@ public class MovieCollection {
 
     public boolean isIndexValid(int indexOfMovie) {
         return indexOfMovie >= 0 && indexOfMovie < movies.size();
+    }
+
+    public Set<Actor> getActors() {
+        Set<Actor> actors = new HashSet<Actor>();
+        for (Movie movie : movies) {
+            actors.addAll(movie.getActors());
+        }
+        return actors;
     }
 }
