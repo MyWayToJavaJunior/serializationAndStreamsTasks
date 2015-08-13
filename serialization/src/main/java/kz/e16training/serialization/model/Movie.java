@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * Movie.
+ * Model of Movie
  *
  */
 public class Movie implements Serializable {

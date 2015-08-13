@@ -3,7 +3,7 @@ package kz.e16training.serialization.model;
 import java.io.Serializable;
 
 /**
- * Actor.
+ * Model of Actor
  *
  */
 public class Actor implements Serializable {
